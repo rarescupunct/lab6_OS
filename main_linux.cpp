@@ -44,15 +44,14 @@ int main() {
         }
 
         sem_post(sem);                       
-        Sleep(1);
+        usleep(1);
     }
 
     std::printf("[pid %d] done\n", pid);
 
     munmap(addr, sizeof(int));
     sem_close(sem);
-    // POSIX objects live in the system until explicitly removed:
-    sem_unlink(SEM_NAME);   // second unlink just fails with ENOENT - harmless
+    sem_unlink(SEM_NAME);  
     shm_unlink(SHM_NAME);
     return 0;
 }
